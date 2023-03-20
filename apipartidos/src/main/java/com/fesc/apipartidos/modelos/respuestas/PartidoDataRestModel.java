@@ -1,6 +1,6 @@
 package com.fesc.apipartidos.modelos.respuestas;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class PartidoDataRestModel {
 
@@ -38,7 +38,6 @@ public class PartidoDataRestModel {
         this.golesLocal = golesLocal;
     }
 
-    
     public Date getCreado() {
         return creado;
     }
