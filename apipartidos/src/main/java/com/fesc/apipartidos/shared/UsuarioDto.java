@@ -44,8 +44,6 @@ public class UsuarioDto implements Serializable {
         this.nombre = nombre;
     }
 
-    
-
     public String getUsername() {
         return username;
     }

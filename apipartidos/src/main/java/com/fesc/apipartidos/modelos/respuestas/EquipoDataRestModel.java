@@ -1,6 +1,7 @@
 package com.fesc.apipartidos.modelos.respuestas;
 
 public class EquipoDataRestModel {
+    
     private long id;
     private String nombre;
 

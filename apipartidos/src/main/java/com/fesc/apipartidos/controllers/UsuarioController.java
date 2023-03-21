@@ -1,6 +1,6 @@
 package com.fesc.apipartidos.controllers;
 
-
+// importancion del proyecto
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,7 +33,6 @@ public class UsuarioController {
 
     @PostMapping
     public UsuarioDataRestModel crearUsuario(@RequestBody UsuarioCrearDataRequestModel usuarioCrearRequestModel) {
-
         UsuarioDto usuarioCrearDto = modelMapper.map(usuarioCrearRequestModel, UsuarioDto.class);
         UsuarioDto usuarioDto = iUsuarioService.crearUsuario(usuarioCrearDto);
         UsuarioDataRestModel usuarioDataRestModel = modelMapper.map(usuarioDto, UsuarioDataRestModel.class);

@@ -1,8 +1,6 @@
 package com.fesc.apipartidos.modelos.peticiones;
 
-// import java.sql.Date;
 import java.util.Date;
-
 
 public class PartidoCrearRequestModel {
 

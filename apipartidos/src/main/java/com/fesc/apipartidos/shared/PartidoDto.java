@@ -1,7 +1,6 @@
 package com.fesc.apipartidos.shared;
 
 import java.io.Serializable;
-// import java.sql.Date;
 import java.util.Date;
 
 

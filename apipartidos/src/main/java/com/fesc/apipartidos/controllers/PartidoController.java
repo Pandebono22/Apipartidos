@@ -31,4 +31,5 @@ public class PartidoController {
         PartidoDataRestModel partidoDataRestModel = modelMapper.map(partidoDto, PartidoDataRestModel.class);
         return partidoDataRestModel;
     }
+    
 }
