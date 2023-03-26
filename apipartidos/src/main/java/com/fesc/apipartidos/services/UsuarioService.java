@@ -1,5 +1,7 @@
 package com.fesc.apipartidos.services;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
@@ -8,8 +10,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.fesc.apipartidos.entidades.PartidoEntity;
 import com.fesc.apipartidos.entidades.UsuarioEntity;
+import com.fesc.apipartidos.repositorios.IPartidoRepository;
 import com.fesc.apipartidos.repositorios.IUsuarioRepository;
+import com.fesc.apipartidos.shared.PartidoDto;
 import com.fesc.apipartidos.shared.UsuarioDto;
 
 @Service
@@ -23,6 +28,9 @@ public class UsuarioService implements IUsuarioService {
 
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    IPartidoRepository iPartidoRepository;
 
     @Override
     public UsuarioDto crearUsuario(UsuarioDto usuarioCrearDto) {
@@ -57,6 +65,27 @@ public class UsuarioService implements IUsuarioService {
 
         UsuarioDto usuarioDto = modelMapper.map(usuarioEntity, UsuarioDto.class);
         return usuarioDto;
+    }
+
+    @Override
+    public List<PartidoDto> leerMispartidos(String userName) {
+
+        UsuarioEntity usuarioEntity = iUsuarioRepository.findByUsername(userName);
+
+        List<PartidoEntity> PartidoEntityList = iPartidoRepository.getByUsuarioEntityIdOrderByCreadoDesc(usuarioEntity.getId());
+
+        List<PartidoDto> partidoDtoList = new ArrayList<PartidoDto>();
+
+
+        for(PartidoEntity partidoEntity: PartidoEntityList){
+
+            PartidoDto partidoDto = modelMapper.map(partidoEntity, PartidoDto.class);
+            partidoDtoList.add(partidoDto);
+
+        }
+
+        return partidoDtoList;
+
     }
 
 }
