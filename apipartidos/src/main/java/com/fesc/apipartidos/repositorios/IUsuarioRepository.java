@@ -10,4 +10,7 @@ public interface IUsuarioRepository extends CrudRepository<UsuarioEntity, Long> 
     public UsuarioEntity findByEmail(String email);
 
     public UsuarioEntity findByUsername(String username);
+
+    public UsuarioEntity findOneByUsername(String username);
+
 }

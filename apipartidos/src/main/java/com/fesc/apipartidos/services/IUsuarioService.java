@@ -5,7 +5,7 @@ import java.util.List;
 import com.fesc.apipartidos.shared.PartidoDto;
 import com.fesc.apipartidos.shared.UsuarioDto;
 
-public interface IUsuarioService {
+public interface IUsuarioService{
 
     public UsuarioDto crearUsuario(UsuarioDto usuarioCrearDto);
 
@@ -13,5 +13,4 @@ public interface IUsuarioService {
 
     public List<PartidoDto> leerMispartidos(String userName);
 
-    
 }

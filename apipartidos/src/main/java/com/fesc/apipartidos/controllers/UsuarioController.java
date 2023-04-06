@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,8 +34,10 @@ public class UsuarioController {
 
     @GetMapping
     public UsuarioDataRestModel leerUsuario() {
-        String username = "rortegani";
-        UsuarioDto usuarioDto = iUsuarioService.leerUsuario(username);
+
+        // Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        // String username = authentication.getPrincipal().toString();
+        UsuarioDto usuarioDto = iUsuarioService.leerUsuario("rortegani");
         UsuarioDataRestModel usuarioDataRestModel = modelMapper.map(usuarioDto, UsuarioDataRestModel.class);
         return usuarioDataRestModel;
     }

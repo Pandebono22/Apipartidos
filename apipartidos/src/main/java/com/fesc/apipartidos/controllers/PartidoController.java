@@ -4,8 +4,11 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,7 +43,8 @@ public class PartidoController {
 
     @PostMapping
     public PartidoDataRestModel crearPartido(@RequestBody PartidoCrearRequestModel partidoCrearRequestModel) {
-        String username = "rortegani";
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getPrincipal().toString();
         PartidoDto partidoCrearDto = modelMapper.map(partidoCrearRequestModel, PartidoDto.class);
         partidoCrearDto.setUsername(username);
         PartidoDto partidoDto = iPartidoService.crearPartido(partidoCrearDto);
@@ -48,8 +52,34 @@ public class PartidoController {
         return partidoDataRestModel;
     }
 
+    @GetMapping(path = "/mispartidos")
+    public List<PartidoDataRestModel> leerMisPartidos() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getPrincipal().toString();
+
+        List<PartidoDto> partidoDtoList = iUsuarioService.leerMispartidos(username);
+        List<PartidoDataRestModel> partidoDataRestModelList = new ArrayList<>();
+
+        for (PartidoDto partidoDto : partidoDtoList) {
+            PartidoDataRestModel partidoDataRestModel = modelMapper.map(partidoDto, PartidoDataRestModel.class);
+            if (partidoDataRestModel.getFecha().compareTo(new Date(System.currentTimeMillis())) < 0) {
+                partidoDataRestModel.setJugado(true);
+            }
+
+            partidoDataRestModelList.add(partidoDataRestModel);
+
+        }
+
+        return partidoDataRestModelList;
+
+    }
+
     @GetMapping
     public List<PartidoDataRestModel> leerPartidos() {
+
+        // Authentication authentication =
+        // SecurityContextHolder.getContext().getAuthentication();
+        // String username = authentication.getPrincipal().toString();
         List<PartidoDto> partidoDtoList = iPartidoService.partidosCreados();
         List<PartidoDataRestModel> partidoDataRestList = new ArrayList<>();
 
@@ -74,7 +104,10 @@ public class PartidoController {
     public PartidoDataRestModel actualizarPartido(@PathVariable String id,
             @RequestBody PartidoActualizarRequestModel partidoActualizarRequestModel) {
 
-        String username = "rortegani";
+        // String username = "rortegani";
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getPrincipal().toString();
+
         PartidoDto partidoActualizarDto = modelMapper.map(partidoActualizarRequestModel, PartidoDto.class);
 
         partidoActualizarDto.setUsername(username);
@@ -89,7 +122,10 @@ public class PartidoController {
     @DeleteMapping(path = "/{id}")
     public MensajeRestModel eliminarPartido(@PathVariable String id) {
 
-        String username = "rortegani";
+        // String username = "rortegani";
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getPrincipal().toString();
+
         UsuarioDto usuarioDto = iUsuarioService.leerUsuario(username);
 
         MensajeRestModel mensajeRestModel = new MensajeRestModel();

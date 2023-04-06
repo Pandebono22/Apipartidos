@@ -6,6 +6,8 @@ import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,8 @@ import com.fesc.apipartidos.entidades.PartidoEntity;
 import com.fesc.apipartidos.entidades.UsuarioEntity;
 import com.fesc.apipartidos.repositorios.IPartidoRepository;
 import com.fesc.apipartidos.repositorios.IUsuarioRepository;
+// import com.fesc.apipartidos.security.UserDatailsImpl;
+import com.fesc.apipartidos.security.UserDetailsImpl;
 import com.fesc.apipartidos.shared.PartidoDto;
 import com.fesc.apipartidos.shared.UsuarioDto;
 
@@ -72,12 +76,12 @@ public class UsuarioService implements IUsuarioService {
 
         UsuarioEntity usuarioEntity = iUsuarioRepository.findByUsername(userName);
 
-        List<PartidoEntity> PartidoEntityList = iPartidoRepository.getByUsuarioEntityIdOrderByCreadoDesc(usuarioEntity.getId());
+        List<PartidoEntity> PartidoEntityList = iPartidoRepository
+                .getByUsuarioEntityIdOrderByCreadoDesc(usuarioEntity.getId());
 
         List<PartidoDto> partidoDtoList = new ArrayList<PartidoDto>();
 
-
-        for(PartidoEntity partidoEntity: PartidoEntityList){
+        for (PartidoEntity partidoEntity : PartidoEntityList) {
 
             PartidoDto partidoDto = modelMapper.map(partidoEntity, PartidoDto.class);
             partidoDtoList.add(partidoDto);
