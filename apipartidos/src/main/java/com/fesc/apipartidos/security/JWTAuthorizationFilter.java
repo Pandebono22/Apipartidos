@@ -19,10 +19,10 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        String bearerToken = request.getHeader("Authorization");
+        String bearerToken = request.getHeader(ConstantesSecurity.HEADER_STRING);
 
-        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
-            String token = bearerToken.replace("Bearer ", "");
+        if (bearerToken != null && bearerToken.startsWith(ConstantesSecurity.TOKEN_PREFIJO)) {
+            String token = bearerToken.replace(ConstantesSecurity.TOKEN_PREFIJO, "");
             UsernamePasswordAuthenticationToken usernamePat = TokenUtils.getAuthentication(token);
             SecurityContextHolder.getContext().setAuthentication(usernamePat);
         }

@@ -1,6 +1,5 @@
 package com.fesc.apipartidos.security;
 
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,12 +14,9 @@ import io.jsonwebtoken.security.Keys;
 
 public class TokenUtils {
 
-    private final static Long ACCESS_TOKEN_VALIDITY_SECONDS = 2_592_000L;
-    public static final String TOKEN_SECRETO = "LAopzruoXHu8FPe/QP3Ongpga4fYVvAvECHL2Hsa7QGeYnKOJOHRYwyCSVjKDfprXJleVh99leqs3E0335rTnA==";
-
     public static String createToken(String nombre, String email) {
 
-        long expirationTime = ACCESS_TOKEN_VALIDITY_SECONDS * 1_000;
+        long expirationTime = ConstantesSecurity.ACCESS_TOKEN_VALIDITY_SECONDS * 1_000;
 
         Date expirationDate = new Date(System.currentTimeMillis() + expirationTime);
 
@@ -30,14 +26,14 @@ public class TokenUtils {
                 .setSubject(email)
                 .setExpiration(expirationDate)
                 .addClaims(extra)
-                .signWith(Keys.hmacShaKeyFor(TOKEN_SECRETO.getBytes()))
+                .signWith(Keys.hmacShaKeyFor(ConstantesSecurity.TOKEN_SECRETO.getBytes()))
                 .compact();
     }
 
     public static UsernamePasswordAuthenticationToken getAuthentication(String token) {
         try {
             Claims claims = Jwts.parserBuilder()
-                    .setSigningKey(TOKEN_SECRETO.getBytes())
+                    .setSigningKey(ConstantesSecurity.TOKEN_SECRETO.getBytes())
                     .build()
                     .parseClaimsJws(token)
                     .getBody();

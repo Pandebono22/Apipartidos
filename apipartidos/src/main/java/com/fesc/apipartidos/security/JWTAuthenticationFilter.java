@@ -1,23 +1,16 @@
 package com.fesc.apipartidos.security;
 
 import java.io.IOException;
-// import java.util.ArrayList;
-// import java.util.Collection;
 import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-// import javax.naming.AuthenticationException;
-
-// import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties.Authentication;
-// import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-// import com.fesc.apipartidos.modelos.peticiones.UsuarioSignupRequestModel;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -57,7 +50,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         String token = TokenUtils.createToken(userDatails.getNombre(), userDatails.getUsername());
 
-        response.addHeader("Authorization", "Bearer " + token);
+        response.addHeader(ConstantesSecurity.HEADER_STRING, ConstantesSecurity.TOKEN_PREFIJO + token);
         response.getWriter().flush();
 
         super.successfulAuthentication(request, response, chain, authResult);

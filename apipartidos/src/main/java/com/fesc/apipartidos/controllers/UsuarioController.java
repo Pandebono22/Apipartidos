@@ -35,9 +35,11 @@ public class UsuarioController {
     @GetMapping
     public UsuarioDataRestModel leerUsuario() {
 
-        // Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        // String username = authentication.getPrincipal().toString();
-        UsuarioDto usuarioDto = iUsuarioService.leerUsuario("rortegani");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getPrincipal().toString();
+
+        System.out.println(username);
+        UsuarioDto usuarioDto = iUsuarioService.leerUsuario(username);
         UsuarioDataRestModel usuarioDataRestModel = modelMapper.map(usuarioDto, UsuarioDataRestModel.class);
         return usuarioDataRestModel;
     }
