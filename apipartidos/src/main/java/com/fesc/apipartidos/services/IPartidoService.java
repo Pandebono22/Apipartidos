@@ -15,5 +15,4 @@ public interface IPartidoService {
 
     public void eliminarPartido(String idPartido, long IdUsuario);
 
-
 }

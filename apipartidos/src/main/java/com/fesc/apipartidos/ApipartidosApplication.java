@@ -11,11 +11,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.fesc.apipartidos.utils.AppContexto;
+
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Encoders;
 import io.jsonwebtoken.security.Keys;
 
-// @SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
 @SpringBootApplication()
 @EnableJpaAuditing
 public class ApipartidosApplication {
@@ -38,6 +39,11 @@ public class ApipartidosApplication {
 	@Bean
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
+	}
+
+	@Bean
+	public AppContexto appContexto() {
+		return new AppContexto();
 	}
 
 }

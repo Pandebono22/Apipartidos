@@ -18,7 +18,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-
 import lombok.AllArgsConstructor;
 
 @Configuration
@@ -31,10 +30,10 @@ public class ConfiguracionSeguridad {
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http, AuthenticationManager auth) throws Exception {
-       
+
         JWTAuthenticationFilter usuarioAutenticacion = new JWTAuthenticationFilter();
         usuarioAutenticacion.setAuthenticationManager(auth);
-        usuarioAutenticacion.setFilterProcessesUrl("/login");
+        usuarioAutenticacion.setFilterProcessesUrl("/usuario/login");
 
         return http
                 .cors()

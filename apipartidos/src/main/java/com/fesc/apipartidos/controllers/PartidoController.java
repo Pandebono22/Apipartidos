@@ -1,7 +1,6 @@
 package com.fesc.apipartidos.controllers;
 
 import java.util.List;
-
 import org.modelmapper.ModelMapper;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,7 +11,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-// import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -77,8 +75,7 @@ public class PartidoController {
     @GetMapping
     public List<PartidoDataRestModel> leerPartidos() {
 
-        // Authentication authentication =
-        // SecurityContextHolder.getContext().getAuthentication();
+        // Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         // String username = authentication.getPrincipal().toString();
         List<PartidoDto> partidoDtoList = iPartidoService.partidosCreados();
         List<PartidoDataRestModel> partidoDataRestList = new ArrayList<>();

@@ -11,6 +11,9 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fesc.apipartidos.services.IUsuarioService;
+import com.fesc.apipartidos.shared.UsuarioDto;
+import com.fesc.apipartidos.utils.AppContexto;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -50,6 +53,11 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         String token = TokenUtils.createToken(userDatails.getNombre(), userDatails.getUsername());
 
+        IUsuarioService iUsuarioService = (IUsuarioService) AppContexto.getBean("usuarioService");
+        UsuarioDto usuarioDto = iUsuarioService.leerUsuario(userDatails.getUsername());
+
+        response.addHeader("Access-Control-Expose-Headers", "Authorization, idUsuario");
+        response.addHeader("idUsuario", usuarioDto.getIdUsuario());
         response.addHeader(ConstantesSecurity.HEADER_STRING, ConstantesSecurity.TOKEN_PREFIJO + token);
         response.getWriter().flush();
 

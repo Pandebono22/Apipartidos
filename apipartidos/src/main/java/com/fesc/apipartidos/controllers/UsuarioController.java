@@ -55,7 +55,10 @@ public class UsuarioController {
     @GetMapping(path = "/mispartidos")
     public List<PartidoDataRestModel> leerMispartidos() {
 
-        String username = "rortegani";
+        // String username = "rortegani";
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getPrincipal().toString();
+
         List<PartidoDto> partidoDtoList = iUsuarioService.leerMispartidos(username);
         List<PartidoDataRestModel> partidoRestModelList = new ArrayList<>();
         for (PartidoDto partidoDto : partidoDtoList) {
