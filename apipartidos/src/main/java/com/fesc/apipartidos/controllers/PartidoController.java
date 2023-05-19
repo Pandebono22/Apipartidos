@@ -101,7 +101,6 @@ public class PartidoController {
     public PartidoDataRestModel actualizarPartido(@PathVariable String id,
             @RequestBody PartidoActualizarRequestModel partidoActualizarRequestModel) {
 
-        // String username = "rortegani";
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getPrincipal().toString();
 
